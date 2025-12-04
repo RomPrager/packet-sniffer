@@ -45,10 +45,15 @@ def choose_interface():
         return selected_iface
 
 
+def print_packet(pkt):
+    print(pkt.summary())
+
+
 def sniffing():
-    capture = scapy.sniff(
-        
+    scapy.sniff(
+        iface=choose_interface(),
+        prn=print_packet,
+        store=False
     )
-
-
+    
 sniffing()
