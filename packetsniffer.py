@@ -48,10 +48,12 @@ def choose_interface():
 def print_packet(pkt):
     print(pkt.summary())
 
-
+def filter_packet():
+    input('')
 def sniffing():
     scapy.sniff(
         iface=choose_interface(),
+        filter=
         prn=print_packet,
         store=False
     )
