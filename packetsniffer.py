@@ -15,7 +15,7 @@ def get_ethernet_interfaces():
         if not st.isup:
             continue
 
-        if "ethernet" in lname:
+        if "ethernet" in lname or 'eno' in lname or 'eth' in lname or 'wi-fi' in lname:
             ethernet_ifaces.append(name)
 
     return ethernet_ifaces
@@ -29,6 +29,9 @@ def choose_interface():
         print(f"  [{idx}] {iface}")
 
     while True:
+        if len(interfaces) == 1:
+            return interfaces
+        
         choice = input('Enter the number of the interface you want to sniff\n')
     
         if not choice.isdigit():
@@ -49,11 +52,12 @@ def print_packet(pkt):
     print(pkt.summary())
 
 def filter_packet():
-    input('')
+    pass
+    
 def sniffing():
     scapy.sniff(
         iface=choose_interface(),
-        filter=
+        #filter=,
         prn=print_packet,
         store=False
     )
