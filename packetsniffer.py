@@ -52,12 +52,43 @@ def print_packet(pkt):
     print(pkt.summary())
 
 def filter_packet():
-    pass
+    try:
+        #while True:
+        protocol_choice = input('filter by protocol:"tcp" "udp" "arp" or "icmp" \n enter for all ')
+        source_host = input('filter by src host ip: ')
+        destenation = input('filter by destenation host ip: ')
+        
+        dst_host = 'dst host ' + destenation if destenation else ''
+        src_host = 'src host ' + source_host if source_host else ''
     
+        if protocol_choice and dst_host and src_host:
+            return protocol_choice + ' and ' + dst_host + ' and ' + src_host
+        
+        elif protocol_choice and dst_host:
+            return protocol_choice + ' and ' + dst_host
+        
+        elif protocol_choice and src_host:
+            return protocol_choice + ' and ' + src_host
+        
+        elif src_host and dst_host:
+            return src_host + ' and ' + dst_host
+        
+        elif protocol_choice:
+            return protocol_choice
+        
+        elif dst_host:
+            return dst_host
+        
+        elif src_host:
+            return src_host
+            
+    except KeyboardInterrupt:
+        print('STOP')
+
 def sniffing():
     scapy.sniff(
         iface=choose_interface(),
-        #filter=,
+        filter= filter_packet(),
         prn=print_packet,
         store=False
     )
